@@ -28,11 +28,11 @@ public class SmsHandler extends Handler {
             values.put("read", "1");
             mcontext.getContentResolver().update(
                     Uri.parse("content://sms/inbox"), values, "thread_id=?",
-                    new String[] { smsInfo.thread_id });
+                    new String[]{smsInfo.thread_id});
         } else if (smsInfo.action == 2) {
-            Uri mUri = Uri.parse("content://sms/");
-            mcontext.getContentResolver().delete(mUri, "_id=?",
-                    new String[] { smsInfo._id });
+//            Uri mUri = Uri.parse("content://sms/");
+//            mcontext.getContentResolver().delete(mUri, "_id=?",
+//                    new String[] { smsInfo._id });
         }
     }
 }

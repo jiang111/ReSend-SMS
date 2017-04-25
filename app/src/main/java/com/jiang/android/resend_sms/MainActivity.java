@@ -2,11 +2,7 @@ package com.jiang.android.resend_sms;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jiang.android.resend_sms.service.SmsService;
+import com.yanzhenjie.permission.AndPermission;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,15 +81,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestPermission() {
         //判断Android版本是否大于23
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS);
-
-            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS},
-                        100);
-                return;
-            }
-        }
+        AndPermission.with(this)
+                .requestCode(100)
+                .permission(Manifest.permission.READ_SMS,
+                        Manifest.permission.SEND_SMS,
+                        Manifest.permission.BROADCAST_SMS,
+                        Manifest.permission.RECEIVE_SMS
+                )
+                .send();
     }
 
 
