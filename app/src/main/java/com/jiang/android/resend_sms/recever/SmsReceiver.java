@@ -57,8 +57,17 @@ public class SmsReceiver extends BroadcastReceiver {
     }
 
     public void sendSMS(String message) {
+//        if (IntenetUtil.getNetworkState(mContext) == IntenetUtil.NETWORN_WIFI) {
+//            WifiManager wifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
+//            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+//            final String ssid = wifiInfo.getSSID();
+//            if (ssid.startsWith("\"HiWiFi")) {
+//                Log.i(TAG, "sendSMS: 发送微信");
+//                new SendPost().send(message);
+//                return;
+//            }
+//        }
         new SendEmail().send(mContext, message);
-
 
     }
 }
